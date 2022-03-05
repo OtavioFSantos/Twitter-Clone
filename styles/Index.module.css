@@ -2,3 +2,33 @@
   color: blue;
   font-size: 64px;
 }
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+}
+
+.tweet {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid gray;
+  margin-bottom: 8px;
+  padding: 6px;
+}
+
+.tweet_data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.centralize {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
