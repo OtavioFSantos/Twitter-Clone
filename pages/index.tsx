@@ -1,24 +1,45 @@
-import { randomUUID } from 'crypto'
+import { PrismaClient } from '@prisma/client'
 import styles from "../styles/Index.module.css"
 
 type Props = Awaited<ReturnType<typeof getServerSideProps>>['props']
 
 export default function IndexPage(props: Props) {
   return (
-    <main>
-      <article>
-        <h1 className={styles.title}>O número da sorte é: {props.number}</h1>
-      </article>
-    </main>
+      <main>
+        <h1 className={styles.title}>Tweets: </h1>
+
+        <article className={styles.centralize}>
+          <section className={styles.timeline}>
+            {props.tweets.map(tweet => (
+              <div className={styles.tweet} key={tweet.id}>
+                <p>{tweet.content}</p>
+
+                <div className={styles.tweet_data}>
+                  <span>❤️ {tweet.likes}</span>
+                  <span>{new Date(tweet.createdAt).toLocaleDateString()}</span>
+                </div>
+              </div>
+            ))}
+          </section>
+        </article>
+      </main>
   )
 }
 
 export async function getServerSideProps() {
-  const number = Math.floor(Math.random() * 100)
+  const prisma = new PrismaClient()
+  const tweets = await prisma.tweet.findMany({
+    select: {
+      id: true,
+      content: true,
+      likes: true,
+      createdAt: true
+    }
+  })
 
   return {
     props: {
-      number
+      tweets: tweets.map(tweet => ({ ...tweet, createdAt: tweet.createdAt.toISOString() }))
     }
   }
 }
