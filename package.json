@@ -2,6 +2,10 @@
   "name": "twitter",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Otávio Santos",
+    "email": "otaviofs01@gmail.com"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
