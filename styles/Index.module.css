@@ -1,6 +1,8 @@
 .title {
-  color: blue;
-  font-size: 64px;
+  display: flex;
+  color: #3692E3;
+  font-size: 36px;
+  margin-left: 36px;
 }
 
 .timeline {
@@ -14,21 +16,68 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-radius: 12px;
-  border: 1px solid gray;
+  border-radius: 6px;
+  border: 2px solid darkgray;
   margin-bottom: 8px;
-  padding: 6px;
+  padding: 10px;
+  padding-top: 1px;
 }
 
 .tweet_data {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 16px;
   width: 100%;
+  color: darkgrey;
 }
 
 .centralize {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.new_tweet {
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 6px;
+  border: 2px solid darkgray;
+  position: relative;
+}
+
+.tweet_button {
+  display: flex;
+  max-width: 64px;
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  border-style: solid;
+  border-radius: 3px;
+  color: white;
+  background-color: #3692E3;
+  border-color: #3692E3;
+  cursor: pointer;
+}
+
+.tweet_button:hover {
+  color: #3692E3;
+  background-color: white;
+  border-color: #3692E3;
+}
+
+.textarea {
+  width: 100%;
+  max-width: 590px;
+  height: 100%;
+  resize: none;
+  border: none;
+  outline: none;
+  margin: 3px;
+  padding: 5px;
+  font-size: 16px;
+  font-family: system-ui;
 }
