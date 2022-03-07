@@ -13,6 +13,6 @@ datasource db {
 model Tweet {
   id        String   @id @default(uuid())
   content   String
-  likes     Int
+  likes     Int      @default(0)
   createdAt DateTime @default(now())
 }
