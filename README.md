@@ -31,7 +31,6 @@ docker-compose up db
 ```
 
 ## Carrega variaveis de .env e inicia o prisma studio
-
 ```
 npx prisma db seed
 npx prisma studio
