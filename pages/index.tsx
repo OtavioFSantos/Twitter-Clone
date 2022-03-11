@@ -1,17 +1,38 @@
 import { PrismaClient } from '@prisma/client'
 import styles from "../styles/Index.module.css"
+import { useForm } from 'react-hook-form'
 
 type Props = Awaited<ReturnType<typeof getServerSideProps>>['props']
 
+const saveTweet = async (data) => {
+  await fetch("/api/tweet", {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+}
+
 export default function IndexPage(props: Props) {
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = async (data) => {
+    try {
+      await saveTweet(data)
+    } catch(err) {
+      console.log(err)
+    }
+    
+  }
+
   return (
       <main>
         <h1 className={styles.title}>Tweets: </h1>
 
         <article className={styles.centralize}>
           <section className={styles.new_tweet}>
-            <textarea className={styles.textarea} rows={5} cols={35}></textarea>
-            <button className={styles.tweet_button}>Twittar</button>
+            <form onSubmit={ handleSubmit(onSubmit) }>
+              <textarea className={styles.input_tweet} id="" cols={30} rows={3} {...register("content", { required: true })}></textarea>
+              <button className={styles.tweet_button}>Twittar</button>
+            </form>
           </section>
 
           <section className={styles.timeline}>
