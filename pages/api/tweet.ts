@@ -1,20 +1,37 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client'
+import type { NextApiRequest, NextApiResponse } from "next";
+import { PrismaClient } from "@prisma/client";
+import { Tweet } from "../../lib/tweets/Tweet";
+import { TweetsService } from "../../lib/tweets/services/TweetsService";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+const tweetsService = new TweetsService(prisma);
 
-  if(req.method !== "POST"){
-    return res.status(500).json({message: "Method not allowed"})
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method === "POST") {
+    const tweet = new Tweet(req.body.content);
+    const newTweet = await tweetsService.create(tweet);
+    return res.status(201).json(newTweet);
   }
 
-  try {
-    const data = JSON.parse(req.body)
-    data.likes = 0
-    await prisma.tweet.create({ data })
-  } catch(err) {
-    res.status(405).json({ message: "Something went wrong" })
+  if (req.method === "GET") {
+    //const tweets = await tweetsService.list()
+    const tweets = await prisma.tweet.findMany({
+      select: {
+        id: true,
+        content: true,
+        likes: true,
+        createdAt: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return res.status(200).json(tweets);
   }
+
+  return res.status(404).send("Not Found");
 }
