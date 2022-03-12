@@ -1,6 +1,6 @@
 .title {
   display: flex;
-  color: #3692E3;
+  color: #3692e3;
   font-size: 36px;
   margin-left: 36px;
 }
@@ -10,31 +10,6 @@
   flex-direction: column;
   width: 100%;
   max-width: 600px;
-}
-
-.tweet {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  border-radius: 6px;
-  border: 2px solid darkgray;
-  margin-bottom: 8px;
-  padding: 1px 8px 6px;
-}
-
-.tweet_data {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 16px;
-  width: 100%;
-  color: darkgrey;
-}
-
-.centralize {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .new_tweet {
@@ -48,37 +23,8 @@
   position: relative;
 }
 
-.tweet_button {
+.centralize {
   display: flex;
-  max-width: 64px;
-  position: absolute;
-  bottom: 4px;
-  right: 4px;
-  border-style: solid;
-  border-radius: 3px;
-  color: white;
-  background-color: #3692E3;
-  border-color: #3692E3;
-  cursor: pointer;
-  font-family: system-ui;
-}
-
-.tweet_button:hover {
-  color: #3692E3;
-  background-color: white;
-  border-color: #3692E3;
-}
-
-.input_tweet {
-  width: 100%;
-  max-width: 590px;
-  height: 100%;
-  max-height: 200px;
-  resize: none;
-  border: none;
-  outline: none;
-  margin: 3px;
-  padding: 6px;
-  font-size: 16px;
-  font-family: system-ui;
+  flex-direction: column;
+  align-items: center;
 }
