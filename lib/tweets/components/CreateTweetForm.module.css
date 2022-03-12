@@ -1,0 +1,44 @@
+.tweet_button {
+  display: flex;
+  max-width: 64px;
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  border-style: solid;
+  border-radius: 3px;
+  color: white;
+  background-color: #3692e3;
+  border-color: #3692e3;
+  cursor: pointer;
+  font-family: system-ui;
+}
+
+.tweet_button:hover {
+  color: #3692e3;
+  background-color: white;
+  border-color: #3692e3;
+}
+
+.tweet_button:disabled {
+  background-color: darkgray;
+  border: 1px solid darkgray;
+  cursor: not-allowed;
+}
+
+.tweet_button:disabled:hover {
+  color: black;
+}
+
+.input_tweet {
+  width: 100%;
+  max-width: 590px;
+  height: 100%;
+  max-height: 200px;
+  resize: none;
+  border: none;
+  outline: none;
+  margin: 3px;
+  padding: 6px;
+  font-size: 16px;
+  font-family: system-ui;
+}
