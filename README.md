@@ -3,7 +3,7 @@
 ## Funcionalidades
 
 - Criar uma conta com nome, email, handle
-- Publicar tweets de até 240 caracteres
+- Publicar tweets de até 200 caracteres
 - Curtir tweets
 - Responder tweets com outro tweet
 - Seguir pessoas
