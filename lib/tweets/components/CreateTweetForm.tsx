@@ -39,11 +39,12 @@ export function CreateTweetForm() {
         cols={30}
         rows={3}
         value={content}
+        placeholder="What's happening?"
         onChange={(ev) => setContent(ev.target.value)}
       />
 
       <button className={styles.tweet_button} disabled={!content}>
-        {mutation.isLoading ? "Criando tweet..." : "Tweetar"}
+        {mutation.isLoading ? "Creating tweet..." : "Tweet"}
       </button>
     </form>
   );

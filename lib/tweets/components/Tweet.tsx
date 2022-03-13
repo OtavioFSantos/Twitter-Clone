@@ -13,11 +13,17 @@ type Props = {
 export function Tweet({ tweet }: Props) {
   return (
     <div className={styles.tweet} key={tweet.id}>
-      <p>{tweet.content}</p>
+      <div className={styles.person}>
+        <span className={styles.name}>Anonymous Writer</span>
+        <span className={styles.username}>@anonymous · </span>
+        <span>{new Date(tweet.createdAt).toLocaleDateString()}</span>
+      </div>
+
+      <p className={styles.content}>{tweet.content}</p>
 
       <div className={styles.tweet_data}>
-        <span>{tweet.likes} Likes</span>
-        <span>{new Date(tweet.createdAt).toLocaleDateString()}</span>
+        <span>{tweet.likes} {tweet.likes > 0 ? "Likes" : "Like"}</span>
+        
       </div>
     </div>
   );

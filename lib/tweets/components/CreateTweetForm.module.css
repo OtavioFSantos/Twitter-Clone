@@ -2,31 +2,31 @@
   display: flex;
   max-width: 64px;
   position: absolute;
-  bottom: 4px;
-  right: 4px;
-  border-style: solid;
-  border-radius: 3px;
+  bottom: 6px;
+  right: 6px;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  font-weight: 600;
   color: white;
-  background-color: #3692e3;
-  border-color: #3692e3;
+  background-color: #c51f5d;
+  border-color: #c51f5d;
   cursor: pointer;
   font-family: system-ui;
 }
 
 .tweet_button:hover {
-  color: #3692e3;
+  color: #c51f5d;
   background-color: white;
-  border-color: #3692e3;
 }
 
 .tweet_button:disabled {
-  background-color: darkgray;
-  border: 1px solid darkgray;
+  background-color: #6e767d;
   cursor: not-allowed;
 }
 
 .tweet_button:disabled:hover {
-  color: black;
+  color: #040608;
 }
 
 .input_tweet {
@@ -41,4 +41,6 @@
   padding: 6px;
   font-size: 16px;
   font-family: system-ui;
+  background-color: #040608;
+  color: white;
 }
