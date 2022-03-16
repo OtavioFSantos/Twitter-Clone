@@ -13,4 +13,18 @@ export class TweetsService {
       },
     });
   }
+
+  async list(){
+    return this.db.tweet.findMany({
+      select: {
+        id: true,
+        content: true,
+        likes: true,
+        createdAt: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
 }

@@ -18,18 +18,7 @@ export default async function handler(
   }
 
   if (req.method === "GET") {
-    //const tweets = await tweetsService.list()
-    const tweets = await prisma.tweet.findMany({
-      select: {
-        id: true,
-        content: true,
-        likes: true,
-        createdAt: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+    const tweets = await tweetsService.list()
     return res.status(200).json(tweets);
   }
 
