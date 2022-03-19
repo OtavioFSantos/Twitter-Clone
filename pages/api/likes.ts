@@ -4,6 +4,7 @@ import { Tweet } from "../../lib/tweets/Tweet";
 import { TweetsService } from "../../lib/tweets/services/TweetsService";
 
 const prisma = new PrismaClient();
+
 const tweetsService = new TweetsService(prisma);
 
 export default async function handler(
@@ -11,14 +12,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const tweet = new Tweet(req.body.content);
-    const newTweet = await tweetsService.create(tweet);
-    return res.status(201).json(newTweet);
-  }
-
-  if (req.method === "GET") {
-    const tweets = await tweetsService.list()  //acredito estar correto
-    return res.status(200).json(tweets);
+    const tweet = new Tweet(req.body);
+    const updatedTweet = await tweetsService.updateLike(tweet);
+    return res.status(201).json(updatedTweet);
   }
 
   return res.status(404).send("Not Found");
