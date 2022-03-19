@@ -1,24 +1,17 @@
 import { PrismaClient } from "@prisma/client";
-import { useQuery } from "react-query";
-import styles from "../styles/Index.module.css";
 import { Tweet } from "../lib/tweets/components/Tweet";
 import { CreateTweetForm } from "../lib/tweets/components/CreateTweetForm";
+import { useTimeline } from '../lib/tweets/hooks/use-timeline'
+import { TweetsService } from '../lib/tweets/services/TweetsService'
+import styles from "../styles/Index.module.css";
 
 type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
 
 export default function IndexPage(props: Props) {
-  const query = useQuery(
-    "tweets",
-    () => fetch("/api/tweet").then((res) => res.json()),
-    {
-      initialData: props.tweets,
-    }
-  );
+  const query = useTimeline(props.tweets)
 
   return (
     <main>
-      <h1 className={styles.title}>Tweets: </h1>
-
       <article className={styles.centralize}>
         <section className={styles.new_tweet}>
           <CreateTweetForm />
@@ -36,14 +29,8 @@ export default function IndexPage(props: Props) {
 
 export async function getServerSideProps() {
   const prisma = new PrismaClient();
-  const tweets = await prisma.tweet.findMany({
-    select: {
-      id: true,
-      content: true,
-      likes: true,
-      createdAt: true,
-    },
-  });
+  const service = new TweetsService(prisma);
+  const tweets = await service.list();
 
   return {
     props: {
