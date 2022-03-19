@@ -1,14 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import { Tweet } from "../lib/tweets/components/Tweet";
 import { CreateTweetForm } from "../lib/tweets/components/CreateTweetForm";
-import { useTimeline } from '../lib/tweets/hooks/use-timeline'
-import { TweetsService } from '../lib/tweets/services/TweetsService'
+import { useTimeline } from "../lib/tweets/hooks/use-timeline";
+import { TweetsService } from "../lib/tweets/services/TweetsService";
 import styles from "../styles/Index.module.css";
 
 type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
 
 export default function IndexPage(props: Props) {
-  const query = useTimeline(props.tweets)
+  const query = useTimeline(props.tweets);
 
   return (
     <main>
@@ -19,7 +19,12 @@ export default function IndexPage(props: Props) {
 
         <section className={styles.timeline}>
           {query.data.map((tweet) => (
-            <Tweet key={tweet.id} tweet={tweet} />
+            <Tweet
+              key={tweet.id}
+              tweet={tweet}
+              userId="blablabla"
+              userName="Otávio"
+            />
           ))}
         </section>
       </article>
@@ -31,6 +36,8 @@ export async function getServerSideProps() {
   const prisma = new PrismaClient();
   const service = new TweetsService(prisma);
   const tweets = await service.list();
+
+  console.log(tweets);
 
   return {
     props: {
