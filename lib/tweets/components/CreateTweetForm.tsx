@@ -17,7 +17,6 @@ export function CreateTweetForm() {
   const mutation = useMutation("create-tweet", saveTweet, {
     onSuccess: () => {
       setContent("");
-
       queryClient.invalidateQueries(["tweets"]);
     },
   });

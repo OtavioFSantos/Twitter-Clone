@@ -34,3 +34,38 @@
 .content {
   margin-top: 4px;
 }
+
+.likeButton {
+  border: none;
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  background-color: #6e767d;
+}
+
+.likeButton:before,
+.likeButton:after {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  content: "";
+  border-radius: 50%;
+  background-color: #6e767d;
+}
+
+.likeButton:before {
+  bottom: 0px;
+  left: -3px;
+}
+
+.likeButton:after {
+  top: -5px;
+  right: 0px;
+}
+
+.likeButton:hover,
+.likeButton:hover:after,
+.likeButton:hover:before {
+  background-color: #c51f5d;
+}
