@@ -9,6 +9,10 @@ type Props = {
     content: TweetType["content"];
     likes: TweetType["likes"];
     createdAt: string;
+    user: {
+      email: string;
+      image: string;
+    };
   };
   userName: string;
   userId: string;
@@ -36,23 +40,30 @@ export function Tweet({ tweet, userId, userName }: Props) {
     mutation.mutate(tweet);
   };
 
+  console.log(tweet.user.image);
+
   return (
     <div className={styles.tweet} key={tweet.id}>
-      <div className={styles.person}>
+      <section className={styles.person}>
+        <img
+          className={styles.user_image}
+          src={tweet.user.image}
+          alt="profile picture"
+        />
         <Link href={`/page/${userId}`}>
-          <a className={styles.name}>{userName}</a>
+          <a className={styles.user_name}>{userName}</a>
         </Link>
-        <span> - {new Date(tweet.createdAt).toLocaleDateString()}</span>
-      </div>
+      </section>
 
       <p className={styles.content}>{tweet.content}</p>
 
-      <div className={styles.tweet_data}>
-        <button className={styles.likeButton} onClick={onSubmit}></button>
-        <span>
-          {tweet.likes} {tweet.likes > 0 ? "Likes" : "Like"}
-        </span>
-      </div>
+      <section className={styles.tweet_data}>
+        <span>{new Date(tweet.createdAt).toLocaleDateString()}</span>
+        <div className={styles.likes}>
+          <button className={styles.like_button} onClick={onSubmit}></button>
+          <span className={styles.like_number}>{tweet.likes}</span>
+        </div>
+      </section>
     </div>
   );
 }
