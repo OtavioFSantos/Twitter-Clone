@@ -19,12 +19,7 @@ export default function IndexPage(props: Props) {
 
         <section className={styles.timeline}>
           {query.data.map((tweet) => (
-            <Tweet
-              key={tweet.id}
-              tweet={tweet}
-              userId="blablabla"
-              userName="Otávio"
-            />
+            <Tweet key={tweet.id} tweet={tweet} />
           ))}
         </section>
       </article>
@@ -36,8 +31,6 @@ export async function getServerSideProps() {
   const prisma = new PrismaClient();
   const service = new TweetsService(prisma);
   const tweets = await service.list();
-
-  console.log(tweets);
 
   return {
     props: {

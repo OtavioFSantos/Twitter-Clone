@@ -14,7 +14,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    // só deve fazer tweet quem tiver autenticado
+    // só deve fazer tweet quem estiver autenticado
     const session = await getSession({ req });
 
     if (!!session && !!session.user) {
