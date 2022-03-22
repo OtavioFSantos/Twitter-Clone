@@ -1,0 +1,66 @@
+.navbar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100%;
+  border-right: solid;
+  border-width: 1px;
+  border-color: #6e767d;
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.user_image {
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 50%;
+  border: solid;
+  border-width: 2px;
+  border-color: #6e767d;
+}
+
+.user_name {
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  margin-top: 20px;
+  margin-left: 20px;
+  max-width: 200px;
+  text-align: center;
+}
+
+.user_email {
+  font-weight: 400;
+  font-size: 14px;
+  color: #6e767d;
+  margin-top: 10px;
+  margin-left: 20px;
+  max-width: 200px;
+  text-align: center;
+}
+
+.user_tweets {
+  font-weight: 450;
+  font-size: 14px;
+  color: white;
+  margin-top: 10px;
+  margin-left: 20px;
+  max-width: 200px;
+  text-align: center;
+}
+
+.timeline {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+}
+
+.centralize {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
