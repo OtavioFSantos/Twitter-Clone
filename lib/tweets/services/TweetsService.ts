@@ -34,6 +34,24 @@ export class TweetsService {
     });
   }
 
+  async listUserTweets(userId: string) {
+    return this.db.tweet.findMany({
+      select: {
+        id: true,
+        content: true,
+        likes: true,
+        createdAt: true,
+        user: true,
+      },
+      where: {
+        id: userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
+
   async updateLike(tweet: Tweet) {
     return this.db.tweet.update({
       where: {
