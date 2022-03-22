@@ -12,10 +12,10 @@ type Props = {
     user: {
       email: string;
       image: string;
+      name: string;
+      id: string;
     };
   };
-  userName: string;
-  userId: string;
 };
 
 const handleLike = (data) =>
@@ -27,7 +27,7 @@ const handleLike = (data) =>
     body: JSON.stringify(data),
   }).then((res) => res.json());
 
-export function Tweet({ tweet, userId, userName }: Props) {
+export function Tweet({ tweet }: Props) {
   const queryClient = useQueryClient();
   const mutation = useMutation("update-likes", handleLike, {
     onSuccess: () => {
@@ -40,8 +40,6 @@ export function Tweet({ tweet, userId, userName }: Props) {
     mutation.mutate(tweet);
   };
 
-  console.log(tweet.user.image);
-
   return (
     <div className={styles.tweet} key={tweet.id}>
       <section className={styles.person}>
@@ -50,8 +48,8 @@ export function Tweet({ tweet, userId, userName }: Props) {
           src={tweet.user.image}
           alt="profile picture"
         />
-        <Link href={`/page/${userId}`}>
-          <a className={styles.user_name}>{userName}</a>
+        <Link href={`/page/${tweet.user.id}`}>
+          <a className={styles.user_name}>{tweet.user.name}</a>
         </Link>
       </section>
 
