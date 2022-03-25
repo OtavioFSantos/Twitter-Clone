@@ -36,7 +36,7 @@ export function CreateTweetForm() {
         className={styles.input_tweet}
         maxLength={200}
         cols={30}
-        rows={3}
+        rows={4}
         value={content}
         placeholder="What's happening?"
         onChange={(ev) => setContent(ev.target.value)}

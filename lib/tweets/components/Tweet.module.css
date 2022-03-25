@@ -1,44 +1,57 @@
 .tweet {
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  border: 1px solid #6e767d;
-  margin-top: -1px;
+  border: none;
+  display: flex;
+  margin-top: 15px;
+  border-radius: 12px;
+  flex-direction: column;
   padding: 6px 12px 12px 14px;
+  background-color: #243447;
 }
 
 .tweet_data {
-  display: flex;
-  flex-direction: column;
-  font-size: 16px;
   width: 100%;
-  color: #6e767d;
+  display: flex;
+  font-size: 16px;
+  color: #aab8c2;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .person {
-  color: #6e767d;
   margin-top: 6px;
+  color: #f5f8fa;
   display: inline-block;
+}
+
+.user_image {
+  width: 100%;
+  margin-top: 0px;
+  max-width: 50px;
+  margin-left: -1px;
+  border-radius: 50%;
 }
 
 .user_name {
   font-weight: 700;
-  color: white;
-  position: absolute;
+  color: #f5f8fa;
   margin-top: 17px;
   margin-left: 12px;
+  position: absolute;
 }
 
-.user_image {
-  margin-top: 0px;
-  margin-left: -1px;
-  width: 100%;
-  max-width: 50px;
-  border-radius: 50%;
+.user_email {
+  font-size: 14px;
+  color: #aab8c2;
+  font-weight: 400;
 }
 
 .content {
   margin-top: 6px;
+}
+
+.tweet_date {
+  margin-top: 10px;
 }
 
 .likes {
@@ -46,27 +59,27 @@
 }
 
 .like_button {
-  border: none;
-  cursor: pointer;
   width: 10px;
+  border: none;
   height: 10px;
+  cursor: pointer;
   transform: rotate(45deg);
-  background-color: #6e767d;
+  background-color: #aab8c2;
 }
 
 .like_button:before,
 .like_button:after {
-  position: absolute;
   width: 10px;
-  height: 10px;
   content: "";
+  height: 10px;
+  position: absolute;
   border-radius: 50%;
-  background-color: #6e767d;
+  background-color: #aab8c2;
 }
 
 .like_button:before {
-  bottom: 0px;
   left: -3px;
+  bottom: 0px;
 }
 
 .like_button:after {
@@ -77,12 +90,12 @@
 .like_button:hover,
 .like_button:hover:after,
 .like_button:hover:before {
-  background-color: #c51f5d;
+  background-color: #1da1f2;
 }
 
 .like_number {
+  float: left;
   margin-top: 5px;
   margin-left: 10px;
-  float: left;
   position: absolute;
 }

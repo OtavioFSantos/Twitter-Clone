@@ -1,15 +1,15 @@
 .login_page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 700px;
-  position: absolute;
   top: 30%;
   left: 50%;
+  width: 100%;
+  display: flex;
+  max-width: 700px;
+  position: absolute;
+  align-items: center;
+  flex-direction: column;
+  transform: translateX(-50%) translateY(-50%);
   -moz-transform: translateX(-50%) translateY(-50%);
   -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
 }
 
 .login_h1 {
@@ -18,17 +18,17 @@
 }
 
 .login_button {
-  display: flex;
-  max-width: 160px;
-  padding: 10px;
   border: none;
   outline: none;
-  border-radius: 2px;
-  font-weight: 600;
+  padding: 10px;
+  display: flex;
   color: white;
-  background-color: #c51f5d;
   cursor: pointer;
+  max-width: 160px;
+  font-weight: 600;
+  border-radius: 2px;
   font-family: system-ui;
+  background-color: #c51f5d;
 }
 
 .login_button:hover {

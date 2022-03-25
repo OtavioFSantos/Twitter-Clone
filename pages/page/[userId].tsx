@@ -5,13 +5,6 @@ import styles from "../../styles/User.module.css";
 import { Tweet } from "../../lib/tweets/components/Tweet";
 import { useTimeline } from "../../lib/tweets/hooks/use-timeline";
 
-/**
- * Tarefas:
- * - Mostrar o nome do usuário
- * - Mostrar a foto do usuário
- * - Mostrar os tweets do usuário ordenado de forma decrescente de acordo com a data de criação
- */
-
 type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
 
 export default function UserPage(props: Props) {
