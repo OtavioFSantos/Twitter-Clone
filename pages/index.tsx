@@ -1,17 +1,25 @@
-import { PrismaClient } from "@prisma/client";
+import Link from "next/link";
 import { Tweet } from "../lib/tweets/components/Tweet";
 import { CreateTweetForm } from "../lib/tweets/components/CreateTweetForm";
 import { useTimeline } from "../lib/tweets/hooks/use-timeline";
 import { TweetsService } from "../lib/tweets/services/TweetsService";
 import styles from "../styles/Index.module.css";
+import { db } from "../prisma/db";
 
 type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
+
+const service = new TweetsService(db);
 
 export default function IndexPage(props: Props) {
   const query = useTimeline(props.tweets);
 
   return (
     <main>
+      <nav>
+        <Link href="/login">
+          <a>Login</a>
+        </Link>
+      </nav>
       <article className={styles.centralize}>
         <section className={styles.new_tweet}>
           <CreateTweetForm />
@@ -28,8 +36,6 @@ export default function IndexPage(props: Props) {
 }
 
 export async function getServerSideProps() {
-  const prisma = new PrismaClient();
-  const service = new TweetsService(prisma);
   const tweets = await service.list();
 
   return {

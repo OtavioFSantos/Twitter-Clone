@@ -1,35 +1,44 @@
 import type { NextPageContext } from "next";
 import { TweetsService } from "../../lib/tweets/services/TweetsService";
-import { PrismaClient } from "@prisma/client";
 import styles from "../../styles/User.module.css";
 import { Tweet } from "../../lib/tweets/components/Tweet";
-import { useTimeline } from "../../lib/tweets/hooks/use-timeline";
+import { useUserTimeline } from "../../lib/tweets/hooks/use-user-timeline";
+import { UserService } from "../../lib/users/services/UserService";
+import { db } from "../../prisma/db";
+
+const service = new TweetsService(db);
+const userService = new UserService(db);
 
 type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
 
 export default function UserPage(props: Props) {
-  const query = useTimeline(props.tweets);
+  const query = useUserTimeline(props.profile.id);
 
   return (
     <div>
       <nav className={styles.navbar}>
         <img
           className={styles.user_image}
-          src={query.data[0].user.image}
+          src={props.profile.image}
           alt="profile picture"
         />
-        <a className={styles.user_name}>{query.data[0].user.name}</a>
-        <a className={styles.user_email}>{query.data[0].user.email}</a>
+        <a className={styles.user_name}>{props.profile.name}</a>
+        <a className={styles.user_email}>{props.profile.email}</a>
         <a className={styles.user_tweets}>
-          {Object.keys(query.data).length} tweets
+          {query.status === "success" && (
+            <span>{Object.keys(query.data).length} tweets</span>
+          )}
+          {query.status === "error" && <span>Error</span>}
+          {query.status === "loading" && <span>loading</span>}
         </a>
       </nav>
 
       <section className={styles.centralize}>
         <div className={styles.timeline}>
-          {query.data.map((tweet) => (
-            <Tweet key={tweet.id} tweet={tweet} />
-          ))}
+          {query.status === "loading" && <span>Loading...</span>}
+          {query.status === "error" && <span>Error {":-("}</span>}
+          {query.status === "success" &&
+            query.data.map((tweet) => <Tweet key={tweet.id} tweet={tweet} />)}
         </div>
       </section>
     </div>
@@ -37,13 +46,18 @@ export default function UserPage(props: Props) {
 }
 
 export async function getServerSideProps(ctx: NextPageContext) {
-  const userId = ctx.query.userId;
-  const prisma = new PrismaClient();
-  const service = new TweetsService(prisma);
-  const userTweets = await service.listUserTweets(JSON.stringify(userId));
+  const userId = ctx.query.userId as string;
+  const userTweets = await service.listUserTweets(userId);
+  const userProfile = await userService.findById(userId);
 
   return {
     props: {
+      profile: {
+        id: userProfile.id,
+        name: userProfile.name,
+        image: userProfile.image,
+        email: userProfile.email,
+      },
       tweets: userTweets.map((tweet) => ({
         ...tweet,
         createdAt: tweet.createdAt.toISOString(),

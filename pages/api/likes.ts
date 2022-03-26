@@ -1,11 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
 import { Tweet } from "../../lib/tweets/Tweet";
 import { TweetsService } from "../../lib/tweets/services/TweetsService";
+import { db } from "../../prisma/db";
 
-const prisma = new PrismaClient();
-
-const tweetsService = new TweetsService(prisma);
+const tweetsService = new TweetsService(db);
 
 export default async function handler(
   req: NextApiRequest,
