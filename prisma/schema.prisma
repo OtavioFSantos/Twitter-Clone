@@ -11,12 +11,13 @@ datasource db {
 }
 
 model Tweet {
-  id        String   @id @default(uuid())
-  content   String
-  likes     Int      @default(autoincrement())
-  createdAt DateTime @default(now())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  id             String   @id @default(uuid())
+  content        String
+  likes          Int      @default(autoincrement())
+  createdAt      DateTime @default(now())
+  replyToTweetId String?
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
 }
 
 // Next Auth
