@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { SessionProvider } from "next-auth/react"
+import { SessionProvider } from "next-auth/react";
 
 const queryClient = new QueryClient();
 
