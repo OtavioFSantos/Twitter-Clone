@@ -47,7 +47,7 @@ export default function UserPage(props: Props) {
 
 export async function getServerSideProps(ctx: NextPageContext) {
   const userId = ctx.query.userId as string;
-  const userTweets = await service.listUserTweets(userId);
+  const userTweets = await service.listByUserId(userId);
   const userProfile = await userService.findById(userId);
 
   return {
