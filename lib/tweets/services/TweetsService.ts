@@ -1,8 +1,8 @@
-import type { PrismaClient } from "@prisma/client";
+import { DB } from "../../../prisma/db";
 import { Tweet } from "../Tweet";
 
 export class TweetsService {
-  constructor(private readonly db: PrismaClient) {}
+  constructor(private readonly db: DB) {}
 
   async create(tweet: Tweet, userId: string) {
     if (tweet.content.length > 200) {
@@ -34,7 +34,7 @@ export class TweetsService {
     });
   }
 
-  async listUserTweets(userId: string) {
+  async listByUserId(userId: string) {
     return this.db.tweet.findMany({
       select: {
         id: true,
@@ -44,7 +44,7 @@ export class TweetsService {
         user: true,
       },
       where: {
-        id: userId,
+        userId: userId,
       },
       orderBy: {
         createdAt: "desc",
