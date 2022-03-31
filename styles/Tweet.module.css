@@ -1,0 +1,39 @@
+.navbar {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  max-height: 40px;
+  align-items: flex-end;
+  flex-direction: column;
+  background-color: #14171a;
+  z-index: 2;
+}
+
+.home {
+  margin: 12px;
+  width: 15%;
+  height: 70%;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #243447;
+  padding: 5px;
+}
+
+.home:hover {
+  background-color: #39495e;
+}
+
+.timeline {
+  width: 100%;
+  display: flex;
+  margin-top: 40px;
+  max-width: 700px;
+  flex-direction: column;
+}
+
+.centralize {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
