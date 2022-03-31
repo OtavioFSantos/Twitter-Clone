@@ -41,32 +41,34 @@ export function Tweet({ tweet }: Props) {
   };
 
   return (
-    <div className={styles.tweet} key={tweet.id}>
-      <section className={styles.person}>
-        <img
-          className={styles.user_image}
-          src={tweet.user.image}
-          alt="profile picture"
-        />
-        <Link href={`/page/${tweet.user.id}`}>
-          <a className={styles.user_name}>
-            {tweet.user.name}
-            <span className={styles.user_email}> - {tweet.user.email}</span>
-          </a>
-        </Link>
-      </section>
+    <Link href={`/page/${tweet.id}`}>
+      <div className={styles.tweet} key={tweet.id}>
+        <section className={styles.person}>
+          <img
+            className={styles.user_image}
+            src={tweet.user.image}
+            alt="profile picture"
+          />
+          <Link href={`/page/${tweet.user.id}`}>
+            <a className={styles.user_info}>
+              <span className={styles.user_name}>{tweet.user.name}</span>
+              <span className={styles.user_email}> - {tweet.user.email}</span>
+            </a>
+          </Link>
+        </section>
 
-      <p className={styles.content}>{tweet.content}</p>
+        <p className={styles.content}>{tweet.content}</p>
 
-      <section className={styles.tweet_data}>
-        <div className={styles.likes}>
-          <button className={styles.like_button} onClick={onSubmit}></button>
-          <span className={styles.like_number}>{tweet.likes}</span>
-        </div>
-        <span className={styles.tweet_date}>
-          {new Date(tweet.createdAt).toLocaleDateString()}
-        </span>
-      </section>
-    </div>
+        <section className={styles.tweet_data}>
+          <div className={styles.likes}>
+            <button className={styles.like_button} onClick={onSubmit}></button>
+            <span className={styles.like_number}>{tweet.likes}</span>
+          </div>
+          <span className={styles.tweet_date}>
+            {new Date(tweet.createdAt).toLocaleDateString()}
+          </span>
+        </section>
+      </div>
+    </Link>
   );
 }

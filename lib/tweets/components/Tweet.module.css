@@ -9,6 +9,11 @@
   background-color: #243447;
 }
 
+.tweet:hover {
+  background-color: #39495e;
+  cursor: pointer;
+}
+
 .tweet_data {
   width: 100%;
   display: flex;
@@ -32,12 +37,16 @@
   border-radius: 50%;
 }
 
-.user_name {
+.user_info {
   font-weight: 700;
   color: #f5f8fa;
   margin-top: 17px;
   margin-left: 12px;
   position: absolute;
+}
+
+.user_name:hover {
+  border-bottom: 1px solid #f5f8fa;
 }
 
 .user_email {
