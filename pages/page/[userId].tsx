@@ -5,6 +5,7 @@ import { Tweet } from "../../lib/tweets/components/Tweet";
 import { useUserTimeline } from "../../lib/tweets/hooks/use-user-timeline";
 import { UserService } from "../../lib/users/services/UserService";
 import { db } from "../../prisma/db";
+import Link from "next/link";
 
 const service = new TweetsService(db);
 const userService = new UserService(db);
@@ -16,6 +17,11 @@ export default function UserPage(props: Props) {
 
   return (
     <div>
+      <nav className={styles.navbar_top}>
+        <Link href="../">
+          <a className={styles.home}>Home</a>
+        </Link>
+      </nav>
       <nav className={styles.navbar}>
         <img
           className={styles.user_image}
