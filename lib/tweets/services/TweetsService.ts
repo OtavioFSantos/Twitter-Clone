@@ -62,4 +62,19 @@ export class TweetsService {
       },
     });
   }
+
+  async findTweetById(tweetId: string) {
+    return this.db.tweet.findUnique({
+      select: {
+        id: true,
+        content: true,
+        likes: true,
+        createdAt: true,
+        user: true,
+      },
+      where: {
+        id: tweetId,
+      },
+    });
+  }
 }
