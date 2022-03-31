@@ -1,3 +1,29 @@
+.navbar {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  max-height: 40px;
+  align-items: flex-end;
+  flex-direction: column;
+  background-color: #14171a;
+  z-index: 2;
+}
+
+.signin {
+  margin: 12px;
+  width: 15%;
+  height: 70%;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #243447;
+  padding: 5px;
+}
+
+.signin:hover {
+  background-color: #39495e;
+}
+
 .timeline {
   width: 100%;
   display: flex;
@@ -9,7 +35,7 @@
   width: 100%;
   display: flex;
   max-width: 700px;
-  margin-top: 15px;
+  margin-top: 55px;
   position: relative;
   flex-direction: column;
 }
