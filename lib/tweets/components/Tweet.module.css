@@ -65,6 +65,7 @@
 
 .likes {
   margin: 2px 0px 4px 3px;
+  display: inline-block;
 }
 
 .like_button {
@@ -104,7 +105,48 @@
 
 .like_number {
   float: left;
-  margin-top: 5px;
+  margin-top: 6px;
   margin-left: 10px;
+  position: absolute;
+}
+
+.replies {
+  margin-top: 5px;
+  margin-left: 50px;
+  display: inline-block;
+}
+
+.replies_icon {
+  margin-left: 4px;
+  background: #aab8c2;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-radius: 2px;
+  font-size: 9px;
+  border: none;
+}
+
+.replies_icon:hover {
+  background-color: #1da1f2;
+}
+
+.replies_icon::before {
+  content: "";
+  font-size: 1px;
+  border-left: 6px solid #aab8c2;
+  border-top: 5px solid #aab8c2;
+  border-bottom: 9px solid transparent;
+  border-right: 0px solid transparent;
+  margin-right: 5px;
+}
+
+.replies_icon:hover::before {
+  border-left: 6px solid #1da1f2;
+  border-top: 0px solid #1da1f2;
+}
+
+.replies_number {
+  margin-top: 6px;
+  margin-left: 9px;
   position: absolute;
 }

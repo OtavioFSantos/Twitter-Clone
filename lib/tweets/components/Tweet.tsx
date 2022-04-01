@@ -9,6 +9,8 @@ type Props = {
     content: TweetType["content"];
     likes: TweetType["likes"];
     createdAt: string;
+    replyToTweetId: string;
+    replies: TweetType["replies"];
     user: {
       email: string;
       image: string;
@@ -41,7 +43,7 @@ export function Tweet({ tweet }: Props) {
   };
 
   return (
-    <Link href={`/page/${tweet.id}`}>
+    <Link href={`/tweet/${tweet.id}`}>
       <div className={styles.tweet} key={tweet.id}>
         <section className={styles.person}>
           <img
@@ -60,9 +62,19 @@ export function Tweet({ tweet }: Props) {
         <p className={styles.content}>{tweet.content}</p>
 
         <section className={styles.tweet_data}>
-          <div className={styles.likes}>
-            <button className={styles.like_button} onClick={onSubmit}></button>
-            <span className={styles.like_number}>{tweet.likes}</span>
+          <div>
+            <div className={styles.likes}>
+              <button
+                className={styles.like_button}
+                onClick={onSubmit}
+              ></button>
+              <span className={styles.like_number}>{tweet.likes}</span>
+            </div>
+
+            <div className={styles.replies}>
+              <span className={styles.replies_icon}></span>
+              <span className={styles.replies_number}>{tweet.replies}</span>
+            </div>
           </div>
           <span className={styles.tweet_date}>
             {new Date(tweet.createdAt).toLocaleDateString()}
