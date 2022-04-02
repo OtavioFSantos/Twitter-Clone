@@ -41,11 +41,8 @@
   background-color: #f5f8fa;
 }
 
-.tweet_button:disabled {
-  cursor: not-allowed;
-  background-color: #aab8c2;
-}
-
 .tweet_button:disabled:hover {
   color: #141d26;
+  cursor: not-allowed;
+  background-color: #aab8c2;
 }
