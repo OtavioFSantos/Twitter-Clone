@@ -16,6 +16,7 @@ model Tweet {
   likes          Int      @default(autoincrement())
   createdAt      DateTime @default(now())
   replyToTweetId String?
+  replies        Int      @default(0)
   userId         String
   user           User     @relation(fields: [userId], references: [id])
 }

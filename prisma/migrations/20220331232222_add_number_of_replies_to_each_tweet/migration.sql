@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Tweet" ADD COLUMN     "replies" INTEGER NOT NULL DEFAULT 0;
