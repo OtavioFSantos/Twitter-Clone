@@ -1,6 +1,6 @@
 .navbar {
   height: 100%;
-  width: 380px;
+  width: 25.2%;
   margin: 55px 15px;
   display: flex;
   position: fixed;
@@ -10,6 +10,7 @@
   align-items: center;
   flex-direction: column;
   background-color: #243447;
+  z-index: 2;
 }
 
 .navbar_top {
