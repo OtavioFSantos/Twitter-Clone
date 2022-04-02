@@ -16,9 +16,18 @@ model Tweet {
   likes          Int      @default(autoincrement())
   createdAt      DateTime @default(now())
   replyToTweetId String?
-  replies        Int      @default(0)
   userId         String
   user           User     @relation(fields: [userId], references: [id])
+  likeList       Like[]
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  tweetId   String
+  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 // Next Auth
@@ -60,6 +69,7 @@ model User {
   tweets        Tweet[]
   accounts      Account[]
   sessions      Session[]
+  likes         Like[]
 }
 
 model VerificationToken {
