@@ -1,0 +1,48 @@
+.input_tweet {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 16px;
+  color: #f5f8fa;
+  max-width: 700px;
+  max-height: 200px;
+  border-radius: 12px;
+  font-family: system-ui;
+  -webkit-appearance: none;
+  background-color: #243447;
+}
+
+.input_tweet::placeholder {
+  color: #aab8c2;
+}
+
+.tweet_button {
+  display: flex;
+  max-width: 64px;
+  right: 12px;
+  padding: 4px;
+  bottom: 12px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #f5f8fa;
+  position: absolute;
+  border-radius: 5px;
+  font-family: system-ui;
+  background-color: #1da1f2;
+}
+
+.tweet_button:hover {
+  color: #1da1f2;
+  background-color: #f5f8fa;
+}
+
+.tweet_button:disabled:hover {
+  color: #141d26;
+  cursor: not-allowed;
+  background-color: #aab8c2;
+}
