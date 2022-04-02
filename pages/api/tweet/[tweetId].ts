@@ -10,7 +10,7 @@ export default async function handler(
 ) {
   const tweetId = req.query.tweetId as string;
 
-  const tweet = await tweetsService.findTweetById(tweetId);
+  const replies = await tweetsService.listByReplyId(tweetId);
 
-  res.status(200).json(tweet);
+  res.status(200).json(replies);
 }
