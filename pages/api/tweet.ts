@@ -26,7 +26,11 @@ export default async function handler(
 
       const tweet = new Tweet(req.body.content);
 
-      const newTweet = await tweetsService.create(tweet, user.id);
+      const newTweet = await tweetsService.create(
+        tweet,
+        user.id,
+        req.body.replyToTweetId
+      );
       return res.status(201).json(newTweet);
     }
 
