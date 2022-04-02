@@ -4,7 +4,7 @@ import { Tweet } from "../Tweet";
 export class TweetsService {
   constructor(private readonly db: DB) {}
 
-  async create(tweet: Tweet, userId: string) {
+  async create(tweet: Tweet, userId: string, replyToTweetId: string) {
     if (tweet.content.length > 200) {
       throw new Error("Exceeded max length");
     }
@@ -15,6 +15,7 @@ export class TweetsService {
         content: tweet.content,
         likes: tweet.likes ?? 0,
         createdAt: tweet.createdAt,
+        replyToTweetId: replyToTweetId ?? null,
       },
     });
   }
@@ -26,6 +27,8 @@ export class TweetsService {
         content: true,
         likes: true,
         createdAt: true,
+        replyToTweetId: true,
+        replies: true,
         user: true,
       },
       orderBy: {
@@ -41,10 +44,32 @@ export class TweetsService {
         content: true,
         likes: true,
         createdAt: true,
+        replyToTweetId: true,
+        replies: true,
         user: true,
       },
       where: {
         userId: userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
+
+  async listByReplyId(tweetId: string) {
+    return this.db.tweet.findMany({
+      select: {
+        id: true,
+        content: true,
+        likes: true,
+        createdAt: true,
+        replyToTweetId: true,
+        replies: true,
+        user: true,
+      },
+      where: {
+        replyToTweetId: tweetId,
       },
       orderBy: {
         createdAt: "desc",
@@ -70,6 +95,8 @@ export class TweetsService {
         content: true,
         likes: true,
         createdAt: true,
+        replyToTweetId: true,
+        replies: true,
         user: true,
       },
       where: {
