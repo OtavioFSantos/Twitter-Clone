@@ -26,7 +26,7 @@ export default function TweetPage(props: Props) {
           <Tweet key={props.tweet.id} tweet={props.tweet} />
         </div>
         <section className={styles.new_tweet}>
-          <CreateReplyForm key={props.tweet.id} replyId={props.tweet} />
+          <CreateReplyForm key={props.tweet.id} replyId={props.tweet.id} />
         </section>
         <span>
           <br />-<br />
@@ -55,8 +55,8 @@ export async function getServerSideProps(ctx: NextPageContext) {
         likes: userTweet.likes,
         createdAt: userTweet.createdAt.toISOString(),
         replyToTweetId: userTweet.replyToTweetId,
-        replies: userTweet.replies,
         user: userTweet.user,
+        likeList: userTweet.likeList,
       },
       replies: tweetReplies.map((tweet) => ({
         ...tweet,
