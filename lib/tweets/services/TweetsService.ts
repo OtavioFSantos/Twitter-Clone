@@ -28,8 +28,13 @@ export class TweetsService {
         likes: true,
         createdAt: true,
         replyToTweetId: true,
-        replies: true,
         user: true,
+        likeList: {
+          select: {
+            userId: true,
+            user: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
@@ -45,8 +50,13 @@ export class TweetsService {
         likes: true,
         createdAt: true,
         replyToTweetId: true,
-        replies: true,
         user: true,
+        likeList: {
+          select: {
+            userId: true,
+            user: true,
+          },
+        },
       },
       where: {
         userId: userId,
@@ -65,8 +75,13 @@ export class TweetsService {
         likes: true,
         createdAt: true,
         replyToTweetId: true,
-        replies: true,
         user: true,
+        likeList: {
+          select: {
+            userId: true,
+            user: true,
+          },
+        },
       },
       where: {
         replyToTweetId: tweetId,
@@ -88,6 +103,15 @@ export class TweetsService {
     });
   }
 
+  async createLike(tweetId: string, userId: string) {
+    return this.db.like.create({
+      data: {
+        tweetId,
+        userId,
+      },
+    });
+  }
+
   async findTweetById(tweetId: string) {
     return this.db.tweet.findUnique({
       select: {
@@ -96,8 +120,12 @@ export class TweetsService {
         likes: true,
         createdAt: true,
         replyToTweetId: true,
-        replies: true,
         user: true,
+        likeList: {
+          select: {
+            userId: true,
+          },
+        },
       },
       where: {
         id: tweetId,

@@ -15,9 +15,9 @@ export default function IndexPage(props: Props) {
 
   return (
     <main>
-      <nav>
+      <nav className={styles.navbar}>
         <Link href="/login">
-          <a>Sign in</a>
+          <a className={styles.signin}>Sign in</a>
         </Link>
       </nav>
       <article className={styles.centralize}>
