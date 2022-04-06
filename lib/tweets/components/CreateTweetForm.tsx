@@ -1,33 +1,25 @@
 import { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useQueryClient } from "react-query";
+import { useCreateTweet } from "../hooks/use-replies-timeline";
 import styles from "./CreateTweetForm.module.css";
-
-const saveTweet = (data) =>
-  fetch("/api/tweet", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
 
 export function CreateTweetForm() {
   const [content, setContent] = useState("");
   const queryClient = useQueryClient();
-  const mutation = useMutation("create-tweet", saveTweet, {
-    onSuccess: () => {
-      setContent("");
-      queryClient.invalidateQueries(["tweets"]);
-    },
-  });
+  const createTweet = useCreateTweet();
 
   const onSubmit = (ev) => {
     ev.preventDefault();
-    const data = {
-      content,
-    };
 
-    mutation.mutate(data);
+    createTweet.mutate(
+      { content },
+      {
+        onSuccess: () => {
+          setContent("");
+          queryClient.invalidateQueries(["tweets"]);
+        },
+      }
+    );
   };
 
   return (
@@ -43,7 +35,7 @@ export function CreateTweetForm() {
       />
 
       <button className={styles.tweet_button} disabled={!content}>
-        {mutation.isLoading ? "Creating tweet..." : "Tweet"}
+        {createTweet.isLoading ? "Creating tweet..." : "Tweet"}
       </button>
     </form>
   );
