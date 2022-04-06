@@ -10,7 +10,9 @@ type Props = {
     likes: TweetType["likes"];
     createdAt: string;
     replyToTweetId: string;
-    replies: TweetType["replies"];
+    likeList: {
+      userId: string;
+    }[];
     user: {
       email: string;
       image: string;
@@ -68,12 +70,14 @@ export function Tweet({ tweet }: Props) {
                 className={styles.like_button}
                 onClick={onSubmit}
               ></button>
-              <span className={styles.like_number}>{tweet.likes}</span>
+              <span className={styles.like_number}>
+                {Object.keys(tweet.likeList).length}
+              </span>
             </div>
 
             <div className={styles.replies}>
               <span className={styles.replies_icon}></span>
-              <span className={styles.replies_number}>{tweet.replies}</span>
+              <span className={styles.replies_number}></span>
             </div>
           </div>
           <span className={styles.tweet_date}>
