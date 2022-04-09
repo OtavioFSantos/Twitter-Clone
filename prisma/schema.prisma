@@ -13,7 +13,7 @@ datasource db {
 model Tweet {
   id             String   @id @default(uuid())
   content        String
-  likes          Int      @default(autoincrement())
+  likes          Int      @default(autoincrement()) //inutilzado e redundante
   createdAt      DateTime @default(now())
   replyToTweetId String?
   userId         String

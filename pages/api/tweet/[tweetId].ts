@@ -10,7 +10,6 @@ export default withSession(async function handler(
   res: NextApiResponse
 ) {
   const tweetId = req.query.tweetId as string;
-
   const replies = await tweetsService.listByReplyId(tweetId);
 
   res.status(200).json(replies);

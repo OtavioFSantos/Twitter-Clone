@@ -9,33 +9,7 @@ const tweetsService = new TweetsService(db);
 const userService = new UserService(db);
 
 // criar uma função que recebe um callback e verifica a sessão do usuário
-// antes de chamar o callback
-
-// se a sessão existir, chama o callback, caso contrário, retorna um erro 401 não autorizado
-
-// how to protect api endpoint next js
-// callback hell, promise hell
-// inversion of control, delegation, dependency injection
-
-// export default withSession(async function handler(req, res) {
-//  ..
-//})
-
-/**
- * @withSession
- * export default async function handler(req, res) {}
- */
-
-/**
- * export function withSession(cb) {
- *    return async function (req, res) {
- *      const session = await getSession({ req })
- *      if (!session.user) // bloqueia o usuário e retorna o erro
- *
- *     return cb(req, res)
- *    }
- * }
- */
+// antes de chamar o callback. Se a sessão existir, chama o callback, caso contrário, retorna um erro 401 não autorizado
 
 export default withSession(async function handler(
   req: NextApiRequest,
@@ -43,13 +17,10 @@ export default withSession(async function handler(
 ) {
   if (req.method === "POST") {
     const session = await getSession({ req });
-    if (session) {
-      const user = await userService.findByEmail(session.user.email);
-      const like = await tweetsService.createLike(req.body.id, user.id);
+    const user = await userService.findByEmail(session.user.email);
+    const like = await tweetsService.createLike(req.body.id, user.id);
 
-      return res.status(201).json(like);
-    }
-    return res.status(401).send("Unauthorized");
+    return res.status(201).json(like);
   }
 
   return res.status(404).send("Not Found");

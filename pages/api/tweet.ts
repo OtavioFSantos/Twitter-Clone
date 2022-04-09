@@ -15,7 +15,6 @@ export default withSession(async function handler(
 ) {
   if (req.method === "POST") {
     const session = await getSession({ req });
-    session.user.email;
     const user = await userService.findByEmail(session.user.email);
 
     const tweet = new Tweet(req.body.content);
