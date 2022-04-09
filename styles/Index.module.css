@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
   position: fixed;
-  max-height: 40px;
+  max-height: 50px;
   align-items: flex-end;
   flex-direction: column;
   background-color: #14171a;

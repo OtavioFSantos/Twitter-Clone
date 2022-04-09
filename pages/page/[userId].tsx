@@ -22,24 +22,24 @@ export default function UserPage(props: Props) {
           <a className={styles.home}>Home</a>
         </Link>
       </nav>
-      <nav className={styles.navbar}>
-        <img
-          className={styles.user_image}
-          src={props.profile.image}
-          alt="profile picture"
-        />
-        <a className={styles.user_name}>{props.profile.name}</a>
-        <a className={styles.user_email}>{props.profile.email}</a>
-        <a className={styles.user_tweets}>
-          {query.status === "success" && (
-            <span>{Object.keys(query.data).length} tweets</span>
-          )}
-          {query.status === "error" && <span>Error</span>}
-          {query.status === "loading" && <span>loading</span>}
-        </a>
-      </nav>
-
       <section className={styles.centralize}>
+        <div className={styles.profile}>
+          <img
+            className={styles.user_image}
+            src={props.profile.image}
+            alt="profile picture"
+          />
+          <a className={styles.user_name}>{props.profile.name}</a>
+          <a className={styles.user_email}>{props.profile.email}</a>
+          <a className={styles.user_tweets}>
+            {query.status === "success" && (
+              <span>{Object.keys(query.data).length} tweets</span>
+            )}
+            {query.status === "error" && <span>Error</span>}
+            {query.status === "loading" && <span>loading</span>}
+          </a>
+        </div>
+
         <div className={styles.timeline}>
           {query.status === "loading" && <span>Loading...</span>}
           {query.status === "error" && <span>Error {":-("}</span>}
