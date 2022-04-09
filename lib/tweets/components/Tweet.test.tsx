@@ -4,7 +4,7 @@ import { Tweet } from "./Tweet";
 
 const testData = {
   id: "abc",
-  content: "O otávio é bonitão",
+  content: "Mensagem de teste",
   user: {
     id: "xyz",
     name: "Otávio",
