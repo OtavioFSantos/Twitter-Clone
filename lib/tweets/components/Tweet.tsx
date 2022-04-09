@@ -22,6 +22,11 @@ type Props = {
   };
 };
 
+// configurar o ambiente de teste
+// escrever uma suíte de testes para este componente
+// configurar um pipeline no github
+// trabalhar com branches
+
 const handleLike = (data) =>
   fetch("/api/likes", {
     method: "POST",
@@ -71,7 +76,7 @@ export function Tweet({ tweet }: Props) {
                 onClick={onSubmit}
               ></button>
               <span className={styles.like_number}>
-                {Object.keys(tweet.likeList).length}
+                {tweet.likeList.length}
               </span>
             </div>
 

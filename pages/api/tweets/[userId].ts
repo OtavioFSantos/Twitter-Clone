@@ -10,7 +10,6 @@ export default withSession(async function handler(
   res: NextApiResponse
 ) {
   const userId = req.query.userId as string;
-
   const tweets = await tweetsService.listByUserId(userId);
 
   res.status(200).json(tweets);
