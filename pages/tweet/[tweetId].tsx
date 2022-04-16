@@ -18,7 +18,7 @@ export default function TweetPage(props: Props) {
     <article>
       <nav className={styles.navbar}>
         <Link href="../">
-          <a className={styles.home}>home</a>
+          <a className={styles.home}>Home</a>
         </Link>
       </nav>
       <section className={styles.centralize}>
