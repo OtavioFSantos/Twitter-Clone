@@ -20,6 +20,13 @@
   padding: 5px;
 }
 
+.user_image {
+  margin: 12px;
+  height: 70%;
+  border-radius: 50%;
+  background-color: #243447;
+}
+
 .signin:hover {
   background-color: #39495e;
 }
