@@ -1,12 +1,12 @@
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 
 export const useRepliesTimeline = (tweetId: string) =>
-  useQuery(`tweetId/${tweetId}`, () =>
-    fetch(`/api/tweet/${tweetId}`).then((res) => res.json())
+  useQuery(`tweetId/${tweetId}/replies`, () =>
+    fetch(`/api/tweets/${tweetId}/replies`).then((res) => res.json())
   );
 
 const createTweet = (data: { content: string; tweetId?: string }) =>
-  fetch("/api/tweet", {
+  fetch(`/api/tweets/protected/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,4 +17,19 @@ const createTweet = (data: { content: string; tweetId?: string }) =>
     }),
   }).then((res) => res.json());
 
-export const useCreateTweet = () => useMutation("createTweet", createTweet);
+export const useCreateTweet = (onSuccess) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    "createTweet",
+    ({ content, tweetId }: { content: string; tweetId?: string }) =>
+      createTweet({ content, tweetId }),
+    {
+      onSuccess: (_data, { tweetId }) => {
+        onSuccess();
+        queryClient.invalidateQueries(["tweets"]);
+        queryClient.invalidateQueries([`tweetId/${tweetId}/replies`]);
+      },
+    }
+  );
+};
