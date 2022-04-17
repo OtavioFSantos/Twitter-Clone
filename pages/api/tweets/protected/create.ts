@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
-import { Tweet } from "../../../../lib/tweets/Tweet";
 import { TweetsService } from "../../../../lib/tweets/services/TweetsService";
 import { UserService } from "../../../../lib/users/services/UserService";
 import { db } from "../../../../prisma/db";
