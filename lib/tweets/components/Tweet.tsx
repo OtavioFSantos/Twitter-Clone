@@ -27,8 +27,7 @@ export function Tweet({ tweet }: Props) {
   const queryClient = useQueryClient();
   const handleLike = useHandleLikes();
 
-  const onSubmit = (ev) => {
-    ev.preventDefault();
+  const onClick = () => {
     handleLike.mutate(tweet, {
       onSuccess: () => {
         queryClient.invalidateQueries(["tweets"]);
@@ -59,8 +58,9 @@ export function Tweet({ tweet }: Props) {
           <div>
             <div className={styles.likes}>
               <button
+                type="button"
                 className={styles.like_button}
-                onClick={onSubmit}
+                onClick={onClick}
               ></button>
               <span className={styles.like_number}>
                 {tweet.likeList.length}

@@ -32,11 +32,11 @@ describe("render tweet successfully", () => {
     expect(screen.getByText(testData.user.name)).toBeVisible();
   });
 
-  it("render the tweet content", () => {
+  it("renders the tweet content", () => {
     expect(screen.getByText(testData.content)).toBeVisible();
   });
 
-  it("render the tweet likes counter", () => {
+  it("renders the tweet likes counter", () => {
     expect(screen.getByText(testData.likeList.length)).toBeVisible();
   });
 });
