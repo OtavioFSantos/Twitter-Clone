@@ -4,17 +4,16 @@ import { Tweet } from "../Tweet";
 export class TweetsService {
   constructor(private readonly db: DB) {}
 
-  async create(tweet: Tweet, userId: string, replyToTweetId: string) {
-    if (tweet.content.length > 200) {
+  async create(content: string, userId: string, replyToTweetId: string) {
+    if (content.length > 200) {
       throw new Error("Exceeded max length");
     }
 
     return this.db.tweet.create({
       data: {
         userId,
-        content: tweet.content,
-        likes: tweet.likes ?? 0,
-        createdAt: tweet.createdAt,
+        content: content,
+        likes: 0,
         replyToTweetId: replyToTweetId ?? null,
       },
     });
