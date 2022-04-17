@@ -1,25 +1,14 @@
 import { useState } from "react";
-import { useQueryClient } from "react-query";
 import { useCreateTweet } from "../hooks/use-replies-timeline";
 import styles from "./CreateTweetForm.module.css";
 
 export function CreateTweetForm() {
   const [content, setContent] = useState("");
-  const queryClient = useQueryClient();
-  const createTweet = useCreateTweet();
+  const createTweet = useCreateTweet(() => setContent(""));
 
   const onSubmit = (ev) => {
     ev.preventDefault();
-
-    createTweet.mutate(
-      { content },
-      {
-        onSuccess: () => {
-          setContent("");
-          queryClient.invalidateQueries(["tweets"]);
-        },
-      }
-    );
+    createTweet.mutate({ content });
   };
 
   return (
