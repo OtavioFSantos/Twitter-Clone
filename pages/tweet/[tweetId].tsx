@@ -2,7 +2,7 @@ import { Tweet } from "../../lib/tweets/components/Tweet";
 import { TweetsService } from "../../lib/tweets/services/TweetsService";
 import { CreateReplyForm } from "../../lib/tweets/components/CreateReplyForm";
 import { db } from "../../prisma/db";
-import { useRepliesTimeline } from "../../lib/tweets/hooks/use-replies-timeline";
+import { useRepliesTimeline } from "../../lib/tweets/hooks/use-replies";
 import type { NextPageContext } from "next";
 import styles from "../../styles/Tweet.module.css";
 import Link from "next/link";

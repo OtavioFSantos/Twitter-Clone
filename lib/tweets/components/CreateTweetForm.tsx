@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCreateTweet } from "../hooks/use-replies-timeline";
+import { useCreateTweet } from "../hooks/use-replies";
 import styles from "./CreateTweetForm.module.css";
 
 export function CreateTweetForm() {
