@@ -1,0 +1,57 @@
+.navbar {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    max-height: 50px;
+    justify-content: space-between;
+    flex-direction: row;
+    background-color: #14171a;
+    z-index: 2;
+}
+
+.title {
+    margin-top: 13px;
+    margin-left: 40px;
+    color: #aab8c2;
+}
+
+.section {
+    display: flex;
+}
+  
+.sign {
+    margin: 6px;
+    width: 120px;
+    height: 75%;
+    border-radius: 8px;
+    text-align: center;
+    background-color: #243447;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.sign:hover {
+    background-color: #39495e;
+}
+
+.user_image {
+    margin: 6px;
+    height: 75%;
+    border-radius: 50%;
+    background-color: #243447;
+}
+
+.home {
+    margin: 6px;
+    width: 120px;
+    height: 75%;
+    border-radius: 8px;
+    text-align: center;
+    background-color: #243447;
+    padding: 8px;
+}
+
+.home:hover {
+    background-color: #39495e;
+}
