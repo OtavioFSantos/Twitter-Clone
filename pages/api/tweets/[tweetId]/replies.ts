@@ -1,11 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { TweetsService } from "../../../lib/tweets/services/TweetsService";
-import { db } from "../../../prisma/db";
-import { withSession } from "../authentication";
+import { TweetsService } from "../../../../lib/tweets/services/TweetsService";
+import { db } from "../../../../prisma/db";
 
 const tweetsService = new TweetsService(db);
 
-export default withSession(async function handler(
+export default async function handleTweetReplies(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -13,4 +12,4 @@ export default withSession(async function handler(
   const replies = await tweetsService.listByReplyId(tweetId);
 
   res.status(200).json(replies);
-});
+}

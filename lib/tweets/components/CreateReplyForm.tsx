@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useCreateTweet } from "../hooks/use-replies-timeline";
 import styles from "./CreateReplyForm.module.css";
-import { useQueryClient } from "react-query";
 
 type Props = {
   replyId: string;
@@ -9,21 +8,11 @@ type Props = {
 
 export function CreateReplyForm({ replyId }: Props) {
   const [content, setContent] = useState("");
-  const createTweet = useCreateTweet();
-  const queryClient = useQueryClient();
+  const createTweet = useCreateTweet(() => setContent(""));
 
   const onSubmit = (ev) => {
     ev.preventDefault();
-
-    createTweet.mutate(
-      { content, tweetId: replyId },
-      {
-        onSuccess: () => {
-          setContent("");
-          queryClient.invalidateQueries([`tweetId/${replyId}`]);
-        },
-      }
-    );
+    createTweet.mutate({ content, tweetId: replyId });
   };
 
   return (

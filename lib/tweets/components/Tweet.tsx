@@ -1,7 +1,8 @@
 import styles from "./Tweet.module.css";
 import type { Tweet as TweetType } from "@prisma/client";
-import { useMutation, useQueryClient } from "react-query";
+import { useQueryClient } from "react-query";
 import Link from "next/link";
+import { useHandleLikes } from "../hooks/use-handle-like";
 
 type Props = {
   tweet: {
@@ -22,31 +23,16 @@ type Props = {
   };
 };
 
-// configurar o ambiente de teste
-// escrever uma suíte de testes para este componente
-// configurar um pipeline no github
-// trabalhar com branches
-
-const handleLike = (data) =>
-  fetch("/api/likes", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  }).then((res) => res.json());
-
 export function Tweet({ tweet }: Props) {
   const queryClient = useQueryClient();
-  const mutation = useMutation("update-likes", handleLike, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["tweets"]);
-    },
-  });
+  const handleLike = useHandleLikes();
 
-  const onSubmit = (ev) => {
-    ev.preventDefault();
-    mutation.mutate(tweet);
+  const onClick = () => {
+    handleLike.mutate(tweet, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["tweets"]);
+      },
+    });
   };
 
   return (
@@ -72,8 +58,9 @@ export function Tweet({ tweet }: Props) {
           <div>
             <div className={styles.likes}>
               <button
+                type="button"
                 className={styles.like_button}
-                onClick={onSubmit}
+                onClick={onClick}
               ></button>
               <span className={styles.like_number}>
                 {tweet.likeList.length}
