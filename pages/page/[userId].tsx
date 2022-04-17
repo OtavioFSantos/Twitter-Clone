@@ -5,7 +5,8 @@ import { Tweet } from "../../lib/tweets/components/Tweet";
 import { useUserTimeline } from "../../lib/tweets/hooks/use-user-timeline";
 import { UserService } from "../../lib/users/services/UserService";
 import { db } from "../../prisma/db";
-import Link from "next/link";
+import { Navbar } from "../../lib/shared/components/Navbar";
+import Head from "next/head";
 
 const service = new TweetsService(db);
 const userService = new UserService(db);
@@ -17,11 +18,15 @@ export default function UserPage(props: Props) {
 
   return (
     <div>
-      <nav className={styles.navbar_top}>
-        <Link href="../">
-          <a className={styles.home}>Home</a>
-        </Link>
-      </nav>
+      <Head>
+        <title>{props.profile.name}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link
+          rel="icon"
+          href="https://img.icons8.com/color/344/twitter--v1.png"
+        ></link>
+      </Head>
+      <Navbar />
       <section className={styles.centralize}>
         <div className={styles.profile}>
           <img
