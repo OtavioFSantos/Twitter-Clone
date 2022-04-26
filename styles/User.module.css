@@ -36,13 +36,42 @@
   text-align: center;
 }
 
-.user_tweets {
+.user_followers {
   font-size: 14px;
   font-weight: 450;
   color: #f5f8fa;
   margin-top: 10px;
   max-width: 200px;
   text-align: center;
+}
+
+.user_tweets {
+  font-size: 14px;
+  font-weight: 450;
+  color: #f5f8fa;
+  margin-top: 2px;
+  max-width: 200px;
+  text-align: center;
+}
+
+.follow_button {
+  display: flex;
+  margin-top: 20px;
+  max-width: 64px;
+  padding: 6px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #f5f8fa;
+  border-radius: 5px;
+  font-family: system-ui;
+  background-color: #1da1f2;
+}
+  
+.follow_button:hover {
+  color: #1da1f2;
+  background-color: #f5f8fa;
 }
 
 .timeline {
