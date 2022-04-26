@@ -61,15 +61,34 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String            @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?           @unique
   emailVerified DateTime?
   image         String?
+  follower      Follower?
   tweets        Tweet[]
   accounts      Account[]
   sessions      Session[]
   likes         Like[]
+  followers     FollowersOnUser[]
+}
+
+model FollowersOnUser {
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  followerId String
+  follower   Follower @relation(fields: [followerId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@id([userId, followerId])
+}
+
+model Follower {
+  id        String            @id @default(cuid())
+  userId    String            @unique
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  followers FollowersOnUser[]
 }
 
 model VerificationToken {
