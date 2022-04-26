@@ -1,7 +1,7 @@
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 const handleLike = (data) =>
-  fetch("/api/likes", {
+  fetch("/api/tweets/protected/likes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -9,4 +9,12 @@ const handleLike = (data) =>
     body: JSON.stringify(data),
   }).then((res) => res.json());
 
-export const useHandleLikes = () => useMutation("update-likes", handleLike);
+export const useHandleLikes = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation("update-likes", handleLike, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tweets"]);
+    },
+  });
+};
