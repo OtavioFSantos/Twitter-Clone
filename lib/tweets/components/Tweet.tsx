@@ -1,6 +1,5 @@
 import styles from "./Tweet.module.css";
 import type { Tweet as TweetType } from "@prisma/client";
-import { useQueryClient } from "react-query";
 import Link from "next/link";
 import { useHandleLikes } from "../hooks/use-handle-like";
 
@@ -24,15 +23,11 @@ type Props = {
 };
 
 export function Tweet({ tweet }: Props) {
-  const queryClient = useQueryClient();
   const handleLike = useHandleLikes();
 
-  const onClick = () => {
-    handleLike.mutate(tweet, {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["tweets"]);
-      },
-    });
+  const onClick = (ev) => {
+    ev.stopPropagation();
+    handleLike.mutate(tweet);
   };
 
   return (
