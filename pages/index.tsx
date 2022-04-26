@@ -6,7 +6,6 @@ import { TweetsService } from "../lib/tweets/services/TweetsService";
 import styles from "../styles/Index.module.css";
 import { db } from "../prisma/db";
 import { useSession } from "next-auth/react";
-import { Fragment } from "react";
 import Head from "next/head";
 
 type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
@@ -30,7 +29,7 @@ export default function IndexPage(props: Props) {
       <Navbar />
       <article className={styles.centralize}>
         <section className={styles.new_tweet}>
-          {!!session ? <CreateTweetForm /> : <Fragment></Fragment>}
+          {!!session && <CreateTweetForm />}
         </section>
         <section className={styles.timeline}>
           {query.data.map((tweet) => (
