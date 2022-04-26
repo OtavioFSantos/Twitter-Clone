@@ -7,14 +7,30 @@ import { UserService } from "../../lib/users/services/UserService";
 import { db } from "../../prisma/db";
 import { Navbar } from "../../lib/shared/components/Navbar";
 import Head from "next/head";
+import { useSession } from "next-auth/react";
+import { useMutation } from "react-query";
 
 const service = new TweetsService(db);
 const userService = new UserService(db);
 
 type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
 
+const useFollowerMutation = (userId: string) => {
+  return useMutation(`follow-user-${userId}`, () =>
+    fetch(`/api/user/${userId}/follow`, {
+      method: "PATCH",
+    }).then((res) => res.json())
+  );
+};
+
 export default function UserPage(props: Props) {
   const query = useUserTimeline(props.profile.id);
+  const { data: session } = useSession();
+  const followerMutation = useFollowerMutation(props.profile.id);
+
+  const followUser = () => {
+    followerMutation.mutate();
+  };
 
   return (
     <div>
@@ -36,6 +52,13 @@ export default function UserPage(props: Props) {
           />
           <a className={styles.user_name}>{props.profile.name}</a>
           <a className={styles.user_email}>{props.profile.email}</a>
+          <a className={styles.user_followers}>
+            {query.status === "success" && (
+              <span>{props.profile.followers.length} followers</span>
+            )}
+            {query.status === "error" && <span>Error</span>}
+            {query.status === "loading" && <span>loading</span>}
+          </a>
           <a className={styles.user_tweets}>
             {query.status === "success" && (
               <span>{Object.keys(query.data).length} tweets</span>
@@ -43,6 +66,17 @@ export default function UserPage(props: Props) {
             {query.status === "error" && <span>Error</span>}
             {query.status === "loading" && <span>loading</span>}
           </a>
+          <section>
+            {!!session && session.user.email != props.profile.email && (
+              <button
+                type="button"
+                className={styles.follow_button}
+                onClick={followUser}
+              >
+                {followerMutation.isLoading ? "Loading" : "Follow"}
+              </button>
+            )}
+          </section>
         </div>
 
         <div className={styles.timeline}>
@@ -61,6 +95,8 @@ export async function getServerSideProps(ctx: NextPageContext) {
   const userTweets = await service.listByUserId(userId);
   const userProfile = await userService.findById(userId);
 
+  console.log(userProfile.followers.length);
+
   return {
     props: {
       profile: {
@@ -68,6 +104,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
         name: userProfile.name,
         image: userProfile.image,
         email: userProfile.email,
+        followers: userProfile.followers,
       },
       tweets: userTweets.map((tweet) => ({
         ...tweet,
