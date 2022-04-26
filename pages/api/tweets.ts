@@ -4,10 +4,6 @@ import { db } from "../../prisma/db";
 
 const tweetsService = new TweetsService(db);
 
-/**
- * Returns a list of tweets using the filter
- *  userId?: string
- */
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const userId = req.query.userId;
 
