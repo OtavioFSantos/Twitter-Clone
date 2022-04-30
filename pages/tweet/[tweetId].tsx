@@ -22,7 +22,8 @@ export default function TweetPage(props: Props) {
     <article>
       <Head>
         <title>
-          {props.tweet.user.name} on Twitter: "{props.tweet.content}"
+          {props.tweet.user.name} on Twitter: &ldquo;{props.tweet.content}
+          &ldquo;
         </title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link
