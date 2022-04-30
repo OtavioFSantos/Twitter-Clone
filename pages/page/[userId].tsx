@@ -1,4 +1,3 @@
-import type { NextPageContext } from "next";
 import { TweetsService } from "../../lib/tweets/services/TweetsService";
 import styles from "../../styles/User.module.css";
 import { Tweet } from "../../lib/tweets/components/Tweet";
@@ -13,8 +12,6 @@ import { useMutation } from "react-query";
 const service = new TweetsService(db);
 const userService = new UserService(db);
 
-type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
-
 const useFollowerMutation = (userId: string) => {
   return useMutation(`follow-user-${userId}`, () =>
     fetch(`/api/user/${userId}/follow`, {
@@ -23,7 +20,7 @@ const useFollowerMutation = (userId: string) => {
   );
 };
 
-export default function UserPage(props: Props) {
+export default function UserPage(props) {
   const query = useUserTimeline(props.profile.id);
   const { data: session } = useSession();
   const followerMutation = useFollowerMutation(props.profile.id);
@@ -81,7 +78,7 @@ export default function UserPage(props: Props) {
 
         <div className={styles.timeline}>
           {query.status === "loading" && <span>Loading...</span>}
-          {query.status === "error" && <span>Error {":-("}</span>}
+          {query.status === "error" && <span>Error</span>}
           {query.status === "success" &&
             query.data.map((tweet) => <Tweet key={tweet.id} tweet={tweet} />)}
         </div>
@@ -90,12 +87,26 @@ export default function UserPage(props: Props) {
   );
 }
 
-export async function getServerSideProps(ctx: NextPageContext) {
-  const userId = ctx.query.userId as string;
+export async function getStaticPaths() {
+  const usersIds = await userService.list();
+  const paths = usersIds.map((user) => {
+    return {
+      params: {
+        userId: user.id.toString(),
+      },
+    };
+  });
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context) {
+  const userId = context.params.userId as string;
   const userTweets = await service.listByUserId(userId);
   const userProfile = await userService.findById(userId);
-
-  console.log(userProfile.followers.length);
 
   return {
     props: {
