@@ -3,6 +3,14 @@ import type { DB } from "../../../prisma/db";
 export class UserService {
   constructor(private readonly db: DB) {}
 
+  async list() {
+    return this.db.user.findMany({
+      select: {
+        id: true,
+      },
+    });
+  }
+
   findByEmail(email: string) {
     return this.db.user.findUnique({
       where: { email },
