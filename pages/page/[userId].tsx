@@ -8,6 +8,7 @@ import { Navbar } from "../../lib/shared/components/Navbar";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { useMutation } from "react-query";
+import { Fragment } from "react";
 
 const service = new TweetsService(db);
 const userService = new UserService(db);
@@ -64,7 +65,7 @@ export default function UserPage(props) {
             {query.status === "loading" && <span>loading</span>}
           </a>
           <section>
-            {!!session && session.user.email != props.profile.email && (
+            {!!session && session.user.email != props.profile.email ? (
               <button
                 type="button"
                 className={styles.follow_button}
@@ -72,6 +73,8 @@ export default function UserPage(props) {
               >
                 {followerMutation.isLoading ? "Loading" : "Follow"}
               </button>
+            ) : (
+              <Fragment></Fragment>
             )}
           </section>
         </div>
