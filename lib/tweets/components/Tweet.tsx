@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/link-passhref */
+/* eslint-disable @next/next/no-img-element */
 import styles from "./Tweet.module.css";
 import type { Tweet as TweetType } from "@prisma/client";
 import Link from "next/link";
@@ -8,6 +10,7 @@ type Props = {
     id: TweetType["id"];
     content: TweetType["content"];
     likes: TweetType["likes"];
+    repliesCount: number;
     createdAt: string;
     replyToTweetId: string;
     likeList: {
@@ -24,6 +27,7 @@ type Props = {
 
 export function Tweet({ tweet }: Props) {
   const handleLike = useHandleLikes();
+  console.log(tweet.repliesCount);
 
   const onClick = (ev) => {
     ev.stopPropagation();
@@ -64,7 +68,9 @@ export function Tweet({ tweet }: Props) {
 
             <div className={styles.replies}>
               <span className={styles.replies_icon}></span>
-              <span className={styles.replies_number}></span>
+              <span className={styles.replies_number}>
+                {tweet.repliesCount}
+              </span>
             </div>
           </div>
           <span className={styles.tweet_date}>
