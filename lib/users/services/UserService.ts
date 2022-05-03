@@ -14,6 +14,22 @@ export class UserService {
   findByEmail(email: string) {
     return this.db.user.findUnique({
       where: { email },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        image: true,
+        followers: {
+          select: {
+            followerId: true,
+          },
+        },
+        follower: {
+          select: {
+            id: true,
+          },
+        },
+      },
     });
   }
 
@@ -30,13 +46,18 @@ export class UserService {
             followerId: true,
           },
         },
+        follower: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
 
   findUserAsFollowerById(id: string) {
     return this.db.follower.findUnique({
-      where: { id },
+      where: { userId: id },
     });
   }
 
