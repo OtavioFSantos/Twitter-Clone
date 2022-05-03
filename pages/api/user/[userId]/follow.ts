@@ -13,9 +13,17 @@ export default async function handleFollow(
   const session = await getSession({ req });
 
   const currentUser = await userService.findByEmail(session.user.email);
+  const followUser = await userService.findById(userId);
+
   let currentUserAsFollower = await userService.findUserAsFollowerById(
     currentUser.id
   );
+
+  if (
+    followUser.followers.some((e) => e.followerId == currentUser.follower.id)
+  ) {
+    return res.status(500).send("error");
+  }
 
   if (!currentUserAsFollower) {
     currentUserAsFollower = await userService.createFollower(currentUser.id);
