@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { TweetsService } from "../../lib/tweets/services/TweetsService";
 import styles from "../../styles/User.module.css";
 import { Tweet } from "../../lib/tweets/components/Tweet";
@@ -6,12 +7,14 @@ import { UserService } from "../../lib/users/services/UserService";
 import { db } from "../../prisma/db";
 import { Navbar } from "../../lib/shared/components/Navbar";
 import Head from "next/head";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useMutation } from "react-query";
-import { Fragment } from "react";
+import { NextPageContext } from "next";
 
 const service = new TweetsService(db);
 const userService = new UserService(db);
+
+type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
 
 const useFollowerMutation = (userId: string) => {
   return useMutation(`follow-user-${userId}`, () =>
@@ -21,13 +24,26 @@ const useFollowerMutation = (userId: string) => {
   );
 };
 
-export default function UserPage(props) {
+const useUnfollowerMutation = (userId: string) => {
+  return useMutation(`unfollow-user-${userId}`, () =>
+    fetch(`/api/user/${userId}/unfollow`, {
+      method: "PATCH",
+    }).then((res) => res.json())
+  );
+};
+
+export default function UserPage(props: Props) {
   const query = useUserTimeline(props.profile.id);
   const { data: session } = useSession();
   const followerMutation = useFollowerMutation(props.profile.id);
+  const unfollowerMutation = useUnfollowerMutation(props.profile.id);
 
   const followUser = () => {
     followerMutation.mutate();
+  };
+
+  const unfollowUser = () => {
+    unfollowerMutation.mutate();
   };
 
   return (
@@ -65,17 +81,31 @@ export default function UserPage(props) {
             {query.status === "loading" && <span>loading</span>}
           </a>
           <section>
-            {!!session && session.user.email != props.profile.email ? (
-              <button
-                type="button"
-                className={styles.follow_button}
-                onClick={followUser}
-              >
-                {followerMutation.isLoading ? "Loading" : "Follow"}
-              </button>
-            ) : (
-              <Fragment></Fragment>
-            )}
+            {!!session &&
+              session.user.email != props.profile.email &&
+              !props.profile.followers.some(
+                (e) => e.followerId == props.session.id
+              ) && (
+                <button
+                  type="button"
+                  className={styles.follow_button}
+                  onClick={followUser}
+                >
+                  {followerMutation.isLoading ? "Loading" : "Follow"}
+                </button>
+              )}
+            {!!session &&
+              props.profile.followers.some(
+                (e) => e.followerId == props.session.id
+              ) && (
+                <button
+                  type="button"
+                  className={styles.follow_button}
+                  onClick={unfollowUser}
+                >
+                  {followerMutation.isLoading ? "Loading" : "Unfollow"}
+                </button>
+              )}
           </section>
         </div>
 
@@ -90,26 +120,12 @@ export default function UserPage(props) {
   );
 }
 
-export async function getStaticPaths() {
-  const usersIds = await userService.list();
-  const paths = usersIds.map((user) => {
-    return {
-      params: {
-        userId: user.id.toString(),
-      },
-    };
-  });
-
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps(context) {
-  const userId = context.params.userId as string;
+export async function getServerSideProps(ctx: NextPageContext) {
+  const userId = ctx.query.userId as string;
   const userTweets = await service.listByUserId(userId);
   const userProfile = await userService.findById(userId);
+  const session = await getSession(ctx);
+  const userSession = await userService.findByEmail(session.user.email);
 
   return {
     props: {
@@ -124,6 +140,9 @@ export async function getStaticProps(context) {
         ...tweet,
         createdAt: tweet.createdAt.toISOString(),
       })),
+      session: {
+        id: userSession.follower.id,
+      },
     },
   };
 }
